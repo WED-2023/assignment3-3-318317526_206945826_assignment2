@@ -1,6 +1,5 @@
-
 <template>
-  <div class="container mt-4" style="max-width: 400px;">
+  <div class="container mt-4" style="max-width: 400px">
     <h2 class="mb-4">Login</h2>
     <b-form @submit.prevent="login">
       <!-- Username -->
@@ -49,16 +48,20 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
-import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { reactive } from "vue";
+import { useVuelidate } from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+import { getCurrentInstance } from "vue";
+import axios from "axios";
+import { useToast } from "vue-toastification";
+import { useRouter } from "vue-router";
 
 export default {
-  name: 'LoginPage',
+  name: "LoginPage",
   setup() {
     const state = reactive({
-      username: '',
-      password: '',
+      username: "",
+      password: "",
       submitError: null,
     });
 
@@ -68,6 +71,10 @@ export default {
     };
 
     const v$ = useVuelidate(rules, state);
+    const { proxy } = getCurrentInstance();
+    const toast = useToast();
+    const router = useRouter();
+    const serverDomain = proxy.store.server_domain;
 
     const getValidationState = (field) => {
       return field.$dirty ? !field.$invalid : null;
@@ -75,17 +82,20 @@ export default {
 
     const login = async () => {
       const valid = await v$.value.$validate();
-      if (!valid) return;
+      if (!valid) {
+        toast.error("User name or Password are incorrect");
+        return;
+      }
 
       try {
-        await window.axios.post('/login', {
+        await axios.post(serverDomain + "/login", {
           username: state.username,
           password: state.password,
         });
-        window.store.login(state.username);
-        window.router.push('/main');
+        proxy.store.login(state.username);
+        router.push("/main");
       } catch (err) {
-        state.submitError = err.response?.data?.message || 'Unexpected error.';
+        state.submitError = err.response?.data?.message || "Unexpected error.";
       }
     };
 
