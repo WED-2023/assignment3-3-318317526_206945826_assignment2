@@ -18,25 +18,25 @@
 </template>
 
 <script>
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance } from "vue";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "App",
   setup() {
     const internalInstance = getCurrentInstance();
     const store = internalInstance.appContext.config.globalProperties.store;
-    const toast = internalInstance.appContext.config.globalProperties.toast;
     const router = internalInstance.appContext.config.globalProperties.$router;
-
+    let toast = useToast();
     const logout = () => {
       store.logout();
-      toast("Logout", "User logged out successfully", "success");
+      toast.success("User logged out successfully");
       router.push("/").catch(() => {});
     };
 
     return { store, logout };
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss">

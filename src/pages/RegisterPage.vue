@@ -1,135 +1,168 @@
 <template>
-  <div class="container mt-4" style="max-width: 500px">
-    <h2 class="mb-4">Register</h2>
-    <b-form @submit.prevent="register">
-      <!-- Username -->
-      <b-form-group label="Username" label-for="username">
-        <b-form-input
-          id="username"
-          v-model="state.username"
-          @blur="v$.username.$touch()"
-        />
-        <b-form-invalid-feedback v-if="v$.username.$error">
-          <div v-if="!v$.username.required">Username is required.</div>
-          <div v-else-if="!v$.username.minLength || !v$.username.maxLength">
-            Username must be 3–8 characters.
-          </div>
-          <div v-else-if="!v$.username.alpha">
-            Username must contain only letters.
-          </div>
-        </b-form-invalid-feedback>
-      </b-form-group>
-      <!-- First Name -->
-      <b-form-group label="First Name" label-for="firstName">
-        <b-form-input
-          id="firstName"
-          v-model="state.firstName"
-          @blur="v$.firstName.$touch()"
-        />
-        <b-form-invalid-feedback v-if="v$.firstName.$error">
-          First name is required.
-        </b-form-invalid-feedback>
-      </b-form-group>
+  <!-- full-height white section identical to the login page -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- illustration – left column, hidden -->
+        <div
+          class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center"
+        >
+          <img
+            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+            class="img-fluid auth-illustration"
+            alt="Registration illustration"
+          />
+        </div>
 
-      <!-- Last Name -->
-      <b-form-group label="Last Name" label-for="lastName">
-        <b-form-input
-          id="lastName"
-          v-model="state.lastName"
-          @blur="v$.lastName.$touch()"
-        />
-        <b-form-invalid-feedback v-if="v$.lastName.$error">
-          Last name is required.
-        </b-form-invalid-feedback>
-      </b-form-group>
+        <!-- form – right column -->
+        <div class="col-12 col-md-8 col-lg-6 mx-auto auth-form">
+          <h2 class="fw-bold text-center mb-4">Sign up</h2>
 
-      <!-- Email -->
-      <b-form-group label="Email" label-for="email">
-        <b-form-input
-          id="email"
-          type="email"
-          v-model="state.email"
-          @blur="v$.email.$touch()"
-        />
-        <b-form-invalid-feedback v-if="v$.email.$error">
-          <div v-if="!v$.email.required">Email is required.</div>
-          <div v-else>Email must be valid.</div>
-        </b-form-invalid-feedback>
-      </b-form-group>
+          <!-- registration form -->
+          <b-form @submit.prevent="register">
+            <!-- Username -->
+            <div class="mb-3">
+              <label>Username</label>
+              <b-form-input
+                v-model="state.username"
+                @blur="v$.username.$touch()"
+                placeholder="Enter username"
+              />
+              <b-form-invalid-feedback v-if="v$.username.$error">
+                <div v-if="!v$.username.required">Username is required.</div>
+                <div
+                  v-else-if="!v$.username.minLength || !v$.username.maxLength"
+                >
+                  Username must be 3–8 characters.
+                </div>
+                <div v-else-if="!v$.username.alpha">
+                  Username must contain only letters.
+                </div>
+              </b-form-invalid-feedback>
+            </div>
 
-      <!-- Country -->
-      <b-form-group label="Country" label-for="country">
-        <b-form-select
-          id="country"
-          v-model="state.country"
-          :options="countries"
-          @change="v$.country.$touch()"
-        />
-        <b-form-invalid-feedback v-if="v$.country.$error">
-          Country is required.
-        </b-form-invalid-feedback>
-      </b-form-group>
+            <!-- First & Last name (side-by-side on lg) -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label>First Name</label>
+                <b-form-input
+                  v-model="state.firstName"
+                  @blur="v$.firstName.$touch()"
+                  placeholder="Enter first name"
+                />
+                <b-form-invalid-feedback v-if="v$.firstName.$error">
+                  First name is required.
+                </b-form-invalid-feedback>
+              </div>
 
-      <!-- Password -->
-      <b-form-group label="Password" label-for="password">
-        <b-form-input
-          id="password"
-          type="password"
-          v-model="state.password"
-          @blur="v$.password.$touch()"
-        />
-        <b-form-invalid-feedback v-if="v$.password.$error">
-          <div v-if="!v$.password.required">Password is required.</div>
-          <div v-else-if="!v$.password.minLength || !v$.password.maxLength">
-            Password must be 5–10 characters.
-          </div>
-          <div v-else-if="!v$.password.hasNumber">
-            Password must contain at least one number.
-          </div>
-          <div v-else-if="!v$.password.hasSpecial">
-            Password must contain at least one special character.
-          </div>
-        </b-form-invalid-feedback>
-      </b-form-group>
+              <div class="col-md-6 mb-3">
+                <label>Last Name</label>
+                <b-form-input
+                  v-model="state.lastName"
+                  @blur="v$.lastName.$touch()"
+                  placeholder="Enter last name"
+                />
+                <b-form-invalid-feedback v-if="v$.lastName.$error">
+                  Last name is required.
+                </b-form-invalid-feedback>
+              </div>
+            </div>
 
-      <!-- Confirm Password -->
-      <b-form-group label="Confirm Password" label-for="confirmedPassword">
-        <b-form-input
-          id="confirmedPassword"
-          type="password"
-          v-model="state.confirmedPassword"
-          @blur="v$.confirmedPassword.$touch()"
-        />
-        <b-form-invalid-feedback v-if="v$.confirmedPassword.$error">
-          <div v-if="!v$.confirmedPassword.required">
-            Confirmation is required.
-          </div>
-          <div v-else-if="!v$.confirmedPassword.sameAsPassword">
-            Passwords do not match.
-          </div>
-        </b-form-invalid-feedback>
-      </b-form-group>
+            <!-- Email -->
+            <div class="mb-3">
+              <label>Email</label>
+              <b-form-input
+                type="email"
+                v-model="state.email"
+                @blur="v$.email.$touch()"
+                placeholder="Enter email"
+              />
+              <b-form-invalid-feedback v-if="v$.email.$error">
+                <div v-if="!v$.email.required">Email is required.</div>
+                <div v-else>Email must be valid.</div>
+              </b-form-invalid-feedback>
+            </div>
 
-      <b-button type="submit" variant="success" class="w-100">
-        Register
-      </b-button>
+            <!-- Country -->
+            <div class="mb-3">
+              <label>Country</label>
+              <b-form-select
+                v-model="state.country"
+                :options="countries"
+                @change="v$.country.$touch()"
+              />
+              <b-form-invalid-feedback v-if="v$.country.$error">
+                Country is required.
+              </b-form-invalid-feedback>
+            </div>
 
-      <b-alert
-        variant="danger"
-        class="mt-3"
-        dismissible
-        v-if="state.submitError"
-        show
-      >
-        Registration failed: {{ state.submitError }}
-      </b-alert>
+            <!-- Password + confirm -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label>Password</label>
+                <b-form-input
+                  type="password"
+                  v-model="state.password"
+                  @blur="v$.password.$touch()"
+                  placeholder="Enter password"
+                />
+                <b-form-invalid-feedback v-if="v$.password.$error">
+                  <div v-if="!v$.password.required">Password is required.</div>
+                  <div
+                    v-else-if="!v$.password.minLength || !v$.password.maxLength"
+                  >
+                    Password must be 5–10 characters.
+                  </div>
+                  <div v-else-if="!v$.password.hasNumber">
+                    At least one number required.
+                  </div>
+                  <div v-else-if="!v$.password.hasSpecial">
+                    Need a special character.
+                  </div>
+                </b-form-invalid-feedback>
+              </div>
 
-      <div class="mt-2">
-        Already have an account?
-        <router-link to="/login">Login here</router-link>
+              <div class="col-md-6 mb-4">
+                <label>Confirm Password</label>
+                <b-form-input
+                  type="password"
+                  v-model="state.confirmedPassword"
+                  @blur="v$.confirmedPassword.$touch()"
+                  placeholder="Repeat password"
+                />
+                <b-form-invalid-feedback v-if="v$.confirmedPassword.$error">
+                  <div v-if="!v$.confirmedPassword.required">
+                    Confirmation is required.
+                  </div>
+                  <div v-else-if="!v$.confirmedPassword.sameAsPassword">
+                    Passwords do not match.
+                  </div>
+                </b-form-invalid-feedback>
+              </div>
+            </div>
+
+            <!-- submit -->
+            <b-button type="submit" variant="primary" class="w-100 mb-3">
+              Register
+            </b-button>
+
+            <!-- backend errors -->
+            <b-alert variant="danger" dismissible v-if="state.submitError" show>
+              Registration failed: {{ state.submitError }}
+            </b-alert>
+
+            <!-- link to login -->
+            <div class="text-center">
+              <p class="small fw-bold mt-3 mb-0 text-center">
+                Already have an account?
+                <router-link to="/login">Login here</router-link>
+              </p>
+            </div>
+          </b-form>
+        </div>
       </div>
-    </b-form>
-  </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -288,3 +321,56 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* full-height white area, same look as login page */
+.auth-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+/* keep the illustration inside reasonable bounds */
+.auth-illustration {
+  width: max-content;
+  height: auto;
+}
+
+/* make input controls match login widths */
+b-form-input,
+b-form-select {
+  height: calc(2.5rem + 2px);
+  font-size: 1rem;
+}
+
+/* match login button look (bootstrap primary does most of the work) */
+b-button {
+  font-size: 1.05rem;
+  padding: 0.6rem;
+}
+.auth-form {
+  max-width: 750px;
+  width: 100%;
+}
+
+.auth-form label {
+  font-size: 1.05rem;
+}
+.auth-form input,
+.auth-form select {
+  height: 3rem;
+  font-size: 1.05rem;
+}
+.auth-form .btn-primary {
+  padding: 0.75rem;
+  font-size: 1.1rem;
+}
+
+/* reduce default container width a bit on very large screens */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1700px;
+  }
+}
+</style>
