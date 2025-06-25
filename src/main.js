@@ -17,6 +17,7 @@ import Vuelidate from "@vuelidate/core";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
+
 // Router setup
 const router = createRouter({
   history: createWebHistory(),
