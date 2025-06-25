@@ -13,7 +13,7 @@ const store = reactive({
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
-    this.username = undefined;
+    store.username = undefined;
   },
 });
 

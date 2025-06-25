@@ -69,6 +69,17 @@ app.component("BCol", BCol);
 
 // Global store
 app.config.globalProperties.store = store;
+app.config.globalProperties.toast = app.config.globalProperties.$toast;
 
 // Mount app
 app.mount("#app");
+
+// TODO: :להוסיף מתכונים שלי הוספה והצגה
+// TODO: :להוסיף מתכונים משפחתיים הוספה והצגה
+// TODO: :להוסיף מתכונים מועדפים הוספה והצגה
+// TODO: לממש קומפוננטה של הצגת מתכון מלא
+// TODO: הפיכת מתכונים במסך הבית ללחיצים
+// TODO: לבדוק אם מתכונים שנצפו לאחרונה באמת מופיעים
+// TODO: לעצב מסך הבית
+// TODO: פיצ'ר של כוכב אם מועדף
+// TODO: :להוסיף|עמוד ABOUT
