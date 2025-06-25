@@ -27,10 +27,11 @@ const routes = [
     name: "search",
     component: () => import("../pages/SearchPage.vue"),
   },
-  {
-    path: "/recipe/:recipeId",
+{
+    path: "/recipe/:source/:recipe_id",
     name: "recipe",
     component: () => import("../pages/RecipeViewPage.vue"),
+    props: true          // passes params as props
   },
   {
     path: "/:catchAll(.*)",

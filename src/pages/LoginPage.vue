@@ -1,18 +1,9 @@
 <template>
-  <section class="vh-100">
+  <section class="vh-100 login-bg">
     <div class="container-fluid h-custom">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <!-- Image section -->
-        <div class="col-md-9 col-lg-6 col-xl-5">
-          <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-            class="img-fluid"
-            alt="Sample image"
-          />
-        </div>
-
-        <!-- Form section -->
-        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+      <div class="row d-flex justify-content-end align-items-center h-100">
+        <!-- Form section only -->
+        <div class="col-md-8 col-lg-6 col-xl-4 shift-right">
           <h2 class="fw-bold text-center mb-4">Login</h2>
           <b-form @submit.prevent="login">
             <!-- Username -->
@@ -52,14 +43,16 @@
 
             <!-- Login button -->
             <div class="text-center text-lg-start mt-4 pt-2">
-              <b-button type="submit" variant="primary" class="btn-lg w-100">
+              <b-button
+                type="submit"
+                variant="primary"
+                class="btn-lg w-100 btn-login"
+              >
                 Login
               </b-button>
               <p class="small fw-bold mt-3 mb-0 text-center">
                 Don't have an account?
-                <router-link to="/register" class="link-danger"
-                  >Register</router-link
-                >
+                <router-link to="/register" class="link">Register</router-link>
               </p>
             </div>
 
@@ -75,23 +68,6 @@
             </b-alert>
           </b-form>
         </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div
-      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary"
-    >
-      <div class="text-white mb-3 mb-md-0">
-        © 2025 Grandma's Recipes. All rights reserved.
-      </div>
-      <div>
-        <a href="#!" class="text-white me-4"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-        <a href="#!" class="text-white me-4"><i class="fab fa-twitter"></i></a>
-        <a href="#!" class="text-white me-4"><i class="fab fa-google"></i></a>
-        <a href="#!" class="text-white"><i class="fab fa-linkedin-in"></i></a>
       </div>
     </div>
   </section>
@@ -162,18 +138,34 @@ export default {
 </script>
 
 <style scoped>
-.divider:after,
-.divider:before {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #eee;
+.btn-login {
+  background-color: #4c6b45;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+.btn-login:hover {
+  background-color: #688c5c;
+}
+.bg-slate {
+  background: #34495e;
+}
+.login-bg {
+  background: url("@/assets/login-hero.png") no-repeat left center;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .h-custom {
   height: calc(100% - 73px);
 }
-
+.shift-right {
+  margin-right: 60px;
+}
 @media (max-width: 450px) {
   .h-custom {
     height: 100%;

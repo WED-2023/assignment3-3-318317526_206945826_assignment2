@@ -1,21 +1,10 @@
 <template>
   <!-- full-height white section identical to the login page -->
-  <section class="auth-section">
+  <section class="auth-section signup-bg">
     <div class="container">
-      <div class="row align-items-center">
-        <!-- illustration – left column, hidden -->
-        <div
-          class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center"
-        >
-          <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-            class="img-fluid auth-illustration"
-            alt="Registration illustration"
-          />
-        </div>
-
-        <!-- form – right column -->
-        <div class="col-12 col-md-8 col-lg-6 mx-auto auth-form">
+      <div class="row align-items-center justify-content-end">
+        <!-- form – right column only -->
+        <div class="col-12 col-md-8 col-lg-6 auth-form me-0 ms-auto">
           <h2 class="fw-bold text-center mb-4">Sign up</h2>
 
           <!-- registration form -->
@@ -142,7 +131,11 @@
             </div>
 
             <!-- submit -->
-            <b-button type="submit" variant="primary" class="w-100 mb-3">
+            <b-button
+              type="submit"
+              variant="primary"
+              class="btn-register w-100 mb-3"
+            >
               Register
             </b-button>
 
@@ -329,12 +322,12 @@ export default {
   display: flex;
   align-items: center;
   background-color: #ffffff;
+  position: relative;
 }
 
-/* keep the illustration inside reasonable bounds */
-.auth-illustration {
-  width: max-content;
-  height: auto;
+.signup-bg {
+  background: url("~@/assets/signup.png") no-repeat left center;
+  background-size: cover;
 }
 
 /* make input controls match login widths */
@@ -344,14 +337,25 @@ b-form-select {
   font-size: 1rem;
 }
 
-/* match login button look (bootstrap primary does most of the work) */
-b-button {
-  font-size: 1.05rem;
-  padding: 0.6rem;
+.btn-register {
+  background-color: #4c6b45;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.btn-register:hover {
+  background-color: #688c5c;
 }
 .auth-form {
   max-width: 750px;
   width: 100%;
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .auth-form label {
@@ -367,7 +371,6 @@ b-button {
   font-size: 1.1rem;
 }
 
-/* reduce default container width a bit on very large screens */
 @media (min-width: 1400px) {
   .container {
     max-width: 1700px;

@@ -13,6 +13,8 @@ import BootstrapVue3 from "bootstrap-vue-3";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import { BContainer, BRow, BCol } from "bootstrap-vue-3";
 import Vuelidate from "@vuelidate/core";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
