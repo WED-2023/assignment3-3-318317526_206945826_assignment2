@@ -51,15 +51,41 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 30px;
+  background-color: #ffffffcc;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
+  font-size: 1.1rem;
 }
 
-#nav a {
+#nav a,
+#nav button {
   font-weight: bold;
   color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+}
+
+#nav button:hover,
+#nav a:hover {
+  color: #1e7e34;
+  text-decoration: underline;
 }
 </style>
