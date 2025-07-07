@@ -1,6 +1,7 @@
-import { createApp, reactive } from "vue";
+import {createApp} from "vue";
 import App from "./App.vue";
 import routes from "./router/index";
+import store from "./store";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import { createRouter, createWebHistory } from "vue-router";
@@ -26,23 +27,9 @@ const router = createRouter({
   routes,
 });
 
-// Shared store
-const store = reactive({
-  username: localStorage.getItem("username"),
-  server_domain: "https://tom-einav.cs.bgu.ac.il",
-  login(username) {
-    localStorage.setItem("username", username);
-    this.username = username;
-    console.log("login", this.username);
-  },
-  logout() {
-    console.log("logout");
-    localStorage.removeItem("username");
-    this.username = undefined;
-  },
-});
-
+axios.defaults.withCredentials = true;
 axios.defaults.baseURL = store.server_domain;
+
 
 // Axios interceptors
 axios.interceptors.request.use(

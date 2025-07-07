@@ -1,8 +1,11 @@
-<template>
-  <div class="container">
+<template>  <div class="container">
     <h1 class="title">Main Page</h1>
 
-    <RecipePreviewList title="Random Recipes" class="RandomRecipes center" />
+    <RecipePreviewList 
+      title="Random Recipes" 
+      class="RandomRecipes center" 
+      listType="random" 
+    />
 
     <div v-if="!store.username" class="text-center mt-4">
       <router-link :to="{ name: 'login' }">
@@ -12,12 +15,13 @@
 
     <RecipePreviewList
       title="Last Viewed Recipes"
+      listType="last-viewed"
       :class="{
         RandomRecipes: true,
         blur: !store.username,
         center: true,
       }"
-      disabled
+      :disabled="!store.username"
     />
   </div>
 </template>
@@ -47,7 +51,7 @@ export default {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
   filter: blur(2px);
 }
-::v-deep .blur .recipe-preview {
+:deep(.blur .recipe-preview) {
   pointer-events: none;
   cursor: default;
 }

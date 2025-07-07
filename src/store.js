@@ -1,4 +1,6 @@
+import axios from "axios";
 import { reactive } from "vue";
+
 
 const store = reactive({
   username: localStorage.getItem("username"),
@@ -10,10 +12,20 @@ const store = reactive({
     console.log("login", this.username);
   },
 
-  logout() {
+  async logout() {
     console.log("logout");
+    console.log("Sending logout request to server:", this.server_domain);
+    try {
+      const url = this.server_domain + "/logout";
+      console.log("Sending logout request to:", url);
+      const response = await axios.post(this.server_domain+"/logout", {});
+      console.log("Logout request successful:", response.data);
+    } catch (error) {
+      console.error("Logout request failed:", error);
+    }
+    console.log("Removing username from localStorage");
     localStorage.removeItem("username");
-    store.username = undefined;
+    this.username = undefined;
   },
 });
 

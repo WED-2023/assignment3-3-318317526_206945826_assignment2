@@ -23,6 +23,15 @@ export default {
       type: String,
       required: true,
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    listType: {
+      type: String,
+      default: "random", // Options: "random", "last-viewed"
+      validator: (value) => ["random", "last-viewed"].includes(value)
+    }
   },
   data() {
     return {
@@ -35,9 +44,13 @@ export default {
   methods: {
     async updateRecipes() {
       try {
-        const response = await this.axios.get(
-          this.$root.store.server_domain + "/recipes/random"
-        );
+        let response;
+        if (this.listType === "random") {
+          response = await this.axios.get("/recipes/random");
+        } else if (this.listType === "last-viewed") {
+          if (this.disabled) return;
+          response = await this.axios.get("/users/last-viewed");
+        }
         this.recipes = response.data;
       } catch (error) {
         console.log(error);
